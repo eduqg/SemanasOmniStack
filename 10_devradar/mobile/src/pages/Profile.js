@@ -1,28 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
+import { WebView } from 'react-native-webview';
 // import { Container } from './styles';
 
-export default function Profile() {
+export default function Profile({ navigation }) {
+  const githubusername = navigation.getParam('github_username');
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        Profile!
-      </Text>
-    </View>
+    <WebView style={{ flex: 1 }} source={{ uri: `https:github.com/${githubusername}` }}></WebView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#7159c1',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 32,
-    color: '#fff',
-  }
-});

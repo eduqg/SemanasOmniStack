@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
+import { MaterialIcons } from '@expo/vector-icons'
 
 // import { Container } from './styles';
 
@@ -36,25 +37,41 @@ export default function Main({ navigation }) {
   }
 
   return (
-    <MapView
-      style={styles.map}
-      initialRegion={currentRegion}
-    >
-      <Marker coordinate={{ latitude: -15.8478025, longitude: -47.9713124 }}>
-        <Image style={styles.avatar} source={{ uri: 'https://robohash.org/ola' }} />
+    <>
+      <MapView
+        style={styles.map}
+        initialRegion={currentRegion}
+      >
+        <Marker coordinate={{ latitude: -15.8478025, longitude: -47.9713124 }}>
+          <Image style={styles.avatar} source={{ uri: 'https://robohash.org/ola' }} />
 
-        <Callout onPress={() => {
-          navigation.navigate('Profile', { github_username: 'diego3g' })
-        }} >
-          <View style={styles.callout}>
-            <Text style={styles.devName}>Diego Fernandes</Text>
-            <Text style={styles.devBio}>Super Programador!</Text>
-            <Text style={styles.devTechs}>ReactJS, React Native, Node.js</Text>
-          </View>
-        </Callout>
-      </Marker>
+          <Callout onPress={() => {
+            navigation.navigate('Profile', { github_username: 'eduqg' })
+          }} >
+            <View style={styles.callout}>
+              <Text style={styles.devName}>Eduardo Gomes</Text>
+              <Text style={styles.devBio}>Dev bio</Text>
+              <Text style={styles.devTechs}>ReactJS, React Native, Node.js</Text>
+            </View>
+          </Callout>
+        </Marker>
 
-    </MapView>
+      </MapView>
+
+      <View style={styles.searchForm}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Buscar devs por tecnologias"
+          placeholderTextColor="#999"
+          autoCapitalize="words"
+          autoCorrect={false}
+        />
+
+        <TouchableOpacity onPress={() => { }} style={styles.loadButton} >
+          <MaterialIcons name="my-location" size={20} color="#fff" />
+        </TouchableOpacity>
+      </View>
+    </>
   );
 }
 
@@ -89,4 +106,43 @@ const styles = StyleSheet.create({
   devTechs: {
     marginTop: 5,
   },
+
+  searchForm: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    right: 20,
+    zIndex: 5,
+    flexDirection: 'row',
+  },
+
+  searchInput: {
+    flex: 1,
+    height: 50,
+    backgroundColor: '#fff',
+    color: '#333',
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    fontSize: 16,
+    // ios
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: {
+      width: 4,
+      height: 4,
+    },
+    // android
+    elevation: 2,
+  },
+
+  loadButton: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#8e4dff',
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 15,
+
+  }
 });
